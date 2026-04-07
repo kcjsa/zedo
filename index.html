@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【公式】ZEDO_MCSREVR</title>
+</head>
+<body style="background-color: #222; color: white; font-family: sans-serif; text-align: center; padding: 20px;">
+
+    <h1 style="border-bottom: 2px solid #555; padding-bottom: 10px; margin-bottom: 20px;">ZEDO_MCSERVER</h1>
+    
+    <div style="margin-bottom: 30px;">
+        <img src="https://yt3.googleusercontent.com/wFsVG4IlWiKP1z6BOJQYmg-tCJ3yCymR6vV_oeeO1BdaPVe4JNMRHkOilSxLQUguWSjE2IZbkA=s120-c-k-c0x00ffffff-no-rj" alt="ZEDO_MCSERVERイメージ" 
+             style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+    </div>
+
+    <div style="margin: 20px 0;">
+        <h3 style="color: #bbb;">Q, zedo_mcserverとは?</h3>
+        <p>A, YouTuber zedoのDiscord班が運営する、企画などに使われるサーバーのこと</p>
+    </div>
+
+    <hr style="border: 0; border-top: 1px solid #444; margin: 40px 0;">
+    <h2 stype="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 35px 0;">運営メンバー</h2>
+    <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 40px 0;">
+        <div style="text-align: center;">
+            <img src="https://yt3.googleusercontent.com/wFsVG4IlWiKP1z6BOJQYmg-tCJ3yCymR6vV_oeeO1BdaPVe4JNMRHkOilSxLQUguWSjE2IZbkA=s120-c-k-c0x00ffffff-no-rj" style="width: 80px; height: 80px; border-radius: 50%; border: 2px solid #555;">
+            <p style="font-size: 12px; margin-top: 5px;">zed_ぜど</p>
+        </div>
+        <div style="text-align: center;">
+            <img src="https://github.com/kcjsa/kikiko/blob/main/efc0b26dbaec2b7827915911c86994a7.webp?raw=true" style="width: 80px; height: 80px; border-radius: 50%; border: 2px solid #555;">
+            <p style="font-size: 12px; margin-top: 5px;">まっちゃ</p>
+        </div>
+        <div style="text-align: center;">
+            <img src="https://github.com/kcjsa/kikiko/blob/main/6ed20449ca859bddd9f56a8577d013fa.webp?raw=true" style="width: 80px; height: 80px; border-radius: 50%; border: 2px solid #555;">
+            <p style="font-size: 12px; margin-top: 5px;">萎えR</p>
+        </div>
+        <div style="text-align: center;">
+            <img src="https://github.com/kcjsa/kikiko/blob/main/ab880de6c7bedec687a4bd36f1fb8acc.webp?raw=true" style="width: 80px; height: 80px; border-radius: 50%; border: 2px solid #555;">
+            <p style="font-size: 12px; margin-top: 5px;">exe</p>
+        </div>
+    </div>
+
+    <hr style="border: 0; border-top: 1px solid #444; margin: 40px 0;">
+
+    <h2>最新動画</h2>
+    <div id="latestVideo" style="margin-top: 20px;">
+        読み込み中...
+    </div>
+
+    <script>
+        const API_KEY = "AIzaSyB-fUZ1xw7GkQKkM3kAGCmpKK-VNGd7sKM";
+        const CHANNEL_ID = "UCAakuXYGZj0ifui88Ve0qLQ";
+        const PLAYLIST_ID = CHANNEL_ID.replace(/^UC/, 'UU');
+
+        async function fetchLatestVideo() {
+            const url = `https://www.googleapis.com/youtube/v3/playlistItems?key=${API_KEY}&playlistId=${PLAYLIST_ID}&part=snippet&maxResults=1`;
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                if (!data.items || data.items.length === 0) {
+                    document.getElementById("latestVideo").innerText = "最新動画が見つかりませんでした。";
+                    return;
+                }
+                const videoId = data.items[0].snippet.resourceId.videoId;
+                document.getElementById("latestVideo").innerHTML = `
+                    <iframe width="100%" style="max-width: 560px; aspect-ratio: 16/9;"
+                            src="https://www.youtube-nocookie.com/embed/${videoId}"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                    </iframe>`;
+            } catch (e) {
+                document.getElementById("latestVideo").innerText = "エラーが発生しました。";
+            }
+        }
+        fetchLatestVideo();
+    </script>
+</body>
+</html>
